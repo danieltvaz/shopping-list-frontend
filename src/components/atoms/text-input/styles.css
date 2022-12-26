@@ -1,0 +1,46 @@
+.textinput__wrapper {
+  display: flex;
+  position: relative;
+}
+
+.textinput__input {
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #c9c9c9;
+  max-width: 400px;
+}
+
+.textinput__input::placeholder {
+  padding-left: 30px;
+}
+
+.textinput__iconwrapper {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translate(0, -50%);
+  opacity: 0.2;
+  transition: opacity 0.1s;
+}
+
+.textinput__input:focus::placeholder {
+  color: transparent;
+  transition: color 0.1s;
+}
+
+.textinput__input:not(:placeholder-shown) + .textinput__iconwrapper {
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.textinput__input:focus + .textinput__iconwrapper {
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+@media screen and (min-width: 280px) and (max-width: 1023px) {
+  .textinput__wrapper {
+    height: 30px;
+  }
+}

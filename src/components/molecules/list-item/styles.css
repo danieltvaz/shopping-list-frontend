@@ -1,0 +1,55 @@
+.listitem__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #c8c8c8;
+}
+
+.listitem__description__wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.listitem__buttons__wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.listitem__removebutton {
+  border-radius: 8px;
+  color: red;
+  width: 36px;
+  height: 24px;
+  outline: none;
+  border: none;
+}
+
+.listitem__editbutton {
+  border-radius: 8px;
+  color: #9a9c01;
+  width: 64px;
+  height: 24px;
+  outline: none;
+  border: none;
+}
+
+.listitem__description-input {
+  border: none;
+  width: 300px;
+  color: #313131;
+}
+
+.listitem__description-input:disabled {
+  background-color: transparent;
+  user-select: none;
+}
+
+.listitem__description-input--done {
+  text-decoration: line-through;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+  .listitem__description-input {
+    width: auto;
+  }
+}

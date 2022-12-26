@@ -1,0 +1,16 @@
+.maincontainer__wrapper {
+  max-width: 600px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  gap: 20px;
+  padding: 24px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+  .maincontainer__wrapper {
+    padding: 0px;
+    gap: 0px;
+  }
+}
