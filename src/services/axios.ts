@@ -1,4 +1,4 @@
-import axios, { AxiosHeaders, AxiosRequestConfig } from "axios";
+import axios, { AxiosHeaders, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 
 import authHandler from "../utils/auth-handler";
 
@@ -9,10 +9,10 @@ interface CustomHeaders extends AxiosHeaders {
 const { getJwt } = authHandler();
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.REACT_APP_API_BASE_URL,
 });
 
-axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
+axiosInstance.interceptors.request.use((request: InternalAxiosRequestConfig) => {
   (request.headers as CustomHeaders).authorization = getJwt();
 
   return request;
