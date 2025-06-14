@@ -1,7 +1,7 @@
 {
-  "name": "lista-de-compras",
-  "homepage": "lista-de-compras",
-  "version": "0.1.0",
+  "name": "shopping-list-frontend",
+  "homepage": "shopping-list-frontend",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",

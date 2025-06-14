@@ -1,0 +1,70 @@
+name: deploy-shopping_list_frontend-ec2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ssh_ec2
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Generate .env file for production
+        run: |
+          cat <<EOF > .env
+          NODE_ENV=production
+          REACT_APP_API_BASE_URL=${{ secrets.API_URL }}
+          PORT=${{ secrets.APP_PORT }}
+          EOF
+
+      - name: Install and build frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Create directory on EC2 if doesn't exist
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            mkdir -p ~/shopping-list/frontend
+
+      - name: Compress frontend build files
+        run: |
+          tar czf frontend-build.tar.gz ./build
+
+      - name: Copy frontend build to EC2
+        run: |
+          scp -i ~/.ssh/id_ed25519 frontend-build.tar.gz ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/shopping-list/frontend/
+
+      - name: Deploy on EC2 and restart services
+        run: |
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            set -e
+            cd ~/shopping-list/frontend
+
+            echo "===> Deploy"
+            tar xzf frontend-build.tar.gz -C .
+            rm frontend-build.tar.gz
+
+            echo "===> Deploy complete"
+          EOF
