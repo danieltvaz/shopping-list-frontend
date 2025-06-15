@@ -1,4 +1,4 @@
-import axios, { AxiosHeaders, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
+import axios, { AxiosHeaders, InternalAxiosRequestConfig } from "axios";
 
 import authHandler from "../utils/auth-handler";
 

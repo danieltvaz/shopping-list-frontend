@@ -1,6 +1,5 @@
 import "./styles.css";
 
-import AddButton from "../../atoms/button";
 import useAuth from "../../../utils/auth-handler";
 import { useNavigate } from "react-router";
 

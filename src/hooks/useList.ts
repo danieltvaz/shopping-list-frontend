@@ -1,5 +1,5 @@
 import { AddProductParams, RemoveProductParams, UpdateProductParams } from "../types/requests";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Product } from "../types/product";
 import axiosInstance from "../services/axios";
@@ -12,7 +12,7 @@ export default function useList() {
     setLoading(true);
 
     try {
-      const request = await axiosInstance.put("/list/products", {
+      await axiosInstance.put("/list/products", {
         product: {
           ...item,
         },
@@ -29,7 +29,7 @@ export default function useList() {
     setLoading(true);
 
     try {
-      const request = await axiosInstance.post("/list/products", {
+      await axiosInstance.post("/list/products", {
         ...item,
       } as AddProductParams);
       await getItems();
@@ -44,7 +44,7 @@ export default function useList() {
     setLoading(true);
 
     try {
-      const request = await axiosInstance.delete("/list/products", {
+      await axiosInstance.delete("/list/products", {
         params: {
           productId: item.id,
         },
@@ -78,7 +78,7 @@ export default function useList() {
     setLoading(true);
 
     try {
-      const request = await axiosInstance.put("/list/products/uncheckAll", {});
+      await axiosInstance.put("/list/products/uncheckAll", {});
       await getItems();
     } catch {
       alert("Error while unchecking all items");

@@ -12,6 +12,6 @@ export function getData<T = any>(key: string): T | null {
   return null;
 }
 
-export function deleteData<T>(key: string) {
+export function deleteData(key: string) {
   localStorage.removeItem(key);
 }

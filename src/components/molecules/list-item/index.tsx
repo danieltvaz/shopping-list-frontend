@@ -32,9 +32,9 @@ export default function ListItem({ item, removeItem, updateItem }: ListItemProps
     setCurrentItem((prev) => ({ ...prev, productName: event.target.value }));
   }
 
-  function handleProductPrice(event: ChangeEvent<HTMLInputElement>) {
-    setCurrentItem((prev) => ({ ...prev, price: event.target.value }));
-  }
+  // function handleProductPrice(event: ChangeEvent<HTMLInputElement>) {
+  //   setCurrentItem((prev) => ({ ...prev, price: event.target.value }));
+  // }
 
   function handleEdit() {
     setIsEdit((prev) => !prev);

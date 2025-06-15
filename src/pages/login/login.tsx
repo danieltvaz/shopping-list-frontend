@@ -37,7 +37,7 @@ export default function LoginPage() {
     <MainContainer>
       <LoadingOverlay active={loading} />
       <div className="login__wrapper">
-        <img src={logo} />
+        <img src={logo} alt="shopping list" />
         <h1>Faça login para continuar</h1>
         <div>
           <TextInput

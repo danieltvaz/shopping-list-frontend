@@ -11,7 +11,7 @@ export default function LoadingOverlay({ active }: LoadingOverlayProps) {
     return (
       <div className="loading-overlay__wrapper">
         <div className="loading-overlay_inner_wrapper">
-          <img src={logo} />
+          <img src={logo} alt="shopping list" />
           <p>Carregando</p>
         </div>
       </div>

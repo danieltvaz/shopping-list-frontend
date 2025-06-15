@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import Button from "../../atoms/button";
 import { Product } from "../../../types/product";
@@ -20,12 +20,12 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  function handleAdd() {
+  const handleAdd = useCallback(() => {
     if (inputRef.current!.value) {
       addItem({ productName: inputRef.current!.value, checked: false, price });
       setInput("");
     }
-  }
+  }, [addItem, inputRef, price]);
 
   function handleSearch() {
     searchItem(searchText);
@@ -35,17 +35,22 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
     uncheckAll();
   }
 
-  function keyupHandle(event: any) {
-    if (event.key === "Enter") handleAdd();
-  }
+  const keyupHandle = useCallback(
+    (event: any) => {
+      if (event.key === "Enter") handleAdd();
+    },
+    [handleAdd]
+  );
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.addEventListener("keyup", keyupHandle);
+    const inputRefCopy = inputRef.current;
+
+    if (inputRefCopy) {
+      inputRefCopy.addEventListener("keyup", keyupHandle);
     }
 
-    return () => inputRef.current?.removeEventListener("keyup", keyupHandle);
-  }, []);
+    return () => inputRefCopy?.removeEventListener("keyup", keyupHandle);
+  }, [keyupHandle]);
 
   return (
     <header className="searchbar__header">
