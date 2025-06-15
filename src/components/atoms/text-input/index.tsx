@@ -11,17 +11,12 @@ type TextInputCustomProps = {
   flex?: number;
 } & ComponentPropsWithRef<"input">;
 
-const TextInput = forwardRef<HTMLInputElement, TextInputCustomProps>(({ icon = true, width, flex, ...props }, ref) => {
+function TextInput({ icon = true, width, flex, ...props }: TextInputCustomProps) {
   return (
-    <div className="textinput__wrapper" style={{ flex }}>
-      <input className="textinput__input" ref={ref} style={{ width }} {...props} />
-      {icon && (
-        <div className="textinput__iconwrapper">
-          <FontAwesomeIcon icon={faTags} />
-        </div>
-      )}
+    <div className="textinput__wrapper" style={{ flex, width }}>
+      <input className="textinput__input" style={{ width }} {...props} />
     </div>
   );
-});
+}
 
 export default TextInput;
