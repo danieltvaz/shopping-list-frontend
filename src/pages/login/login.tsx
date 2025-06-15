@@ -6,7 +6,7 @@ import LoadingOverlay from "../../components/atoms/loading-overlay";
 import MainContainer from "../../components/layout/main-container";
 import Spacer from "../../components/atoms/spacer";
 import TextInput from "../../components/atoms/text-input";
-import logo from "../../assets/logo.jpeg";
+import logo from "../../assets/logo.png";
 import useAuth from "../../utils/auth-handler";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -37,7 +37,7 @@ export default function LoginPage() {
     <MainContainer>
       <LoadingOverlay active={loading} />
       <div className="login__wrapper">
-        <img src={logo} alt="shopping list" />
+        <img src={logo} alt="shopping list" style={{ width: "12rem" }} />
         <h1>Login to proceed</h1>
         <div>
           <TextInput
