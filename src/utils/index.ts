@@ -10,3 +10,12 @@ export function formatMoney(value: string | undefined) {
     return value;
   }
 }
+
+export function isObjectEqual(objectOne: any[] | { [key: string]: any }, objectTwo: any[] | { [key: string]: any }) {
+  if (Array.isArray(objectOne) && Array.isArray(objectTwo)) {
+    return JSON.stringify(objectOne) === JSON.stringify(objectTwo);
+  } else if (typeof objectOne === "object" && typeof objectTwo === "object") {
+    return JSON.stringify(objectOne) === JSON.stringify(objectTwo);
+  }
+  return false;
+}

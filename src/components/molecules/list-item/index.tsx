@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "../../../types/product";
 import TextInput from "../../atoms/text-input";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { isObjectEqual } from "../../../utils";
 
 type ListItemProps = {
   item: Product;
@@ -50,7 +51,9 @@ export default function ListItem({ item, removeItem, updateItem }: ListItemProps
         checked: itemToBeEdited.checked,
       };
 
-      updateItem(updatedItem);
+      if (!isObjectEqual(updatedItem, itemToBeEdited)) {
+        updateItem(updatedItem);
+      }
 
       setIsEdit(false);
     },
