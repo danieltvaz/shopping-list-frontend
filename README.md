@@ -1,46 +1,93 @@
-# Getting Started with Create React App
+![image](./docs/list-interface.png) ![image](./docs/login-interface.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Shopping List 📋🔗
 
-## Available Scripts
+A Shopping List APP that I make to help myself some years ago (and others with same use case) to keep organized my
+shopping list. Every month, I go to the market with my wife to build monthly supplies (food, etc) and there was a
+problem that ever come over and over. What should we buy? Are we forgetting about something? Last month what was the
+price of this product? is cheaper or more expensive now? Then, I think: "i'm a programmer, what not build a tool do
+solve this problem?"
 
-In the project directory, you can run:
+This project is hosted on my personal AWS infrastructure, feel free to use:  
+https://shopping-list.danieltostes.dev/
 
-### `npm start`
+## ✨ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Add items with product name and prie
+- Edit items
+- Delete items
+- Mark item as "checked", useful when you are on the shop
+- Backend based search for items
+- Unmark all items at once with one button
+- Clean and responsive UI built with ReactJS and CSS.
+- All data are persistent by the backend, [here](https://github.com/danieltvaz/shopping-list-api). Important: the entire
+  application are hosted on my personal AWS infrastructure, so I **do not** will give you any kind of support to who
+  decide to use this application, but I'm open to receive suggestions and bug reports.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🧑‍💻 Technologies
 
-### `npm test`
+- [ReactJS](https://react.dev/) — UI Logic & Reactivity
+- [CSS](https://www.w3.org/Style/CSS/Overview.en.html) — UI styling & Responsive Design
+- [React Router](https://reactrouter.com/) — Page Routing & Auth Middleware
+- [TypeScript](https://www.typescriptlang.org/) - Main language
+- [Docker](https://www.docker.com/) / [Podman](https://podman.io/) — containerization
+- [AWS EC2](https://aws.amazon.com/ec2/) — hosting provider
+- [AWS RDS - MySQL](https://aws.amazon.com/rds/) — database
+- [GitHub Actions](https://github.com/features/actions) — CI/CD automation
+- [Nginx](https://www.nginx.com/) — reverse proxy & static server
+- [Certbot](https://certbot.eff.org/) — HTTPS certificate generation and renewal
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 👤 Who is this project for?
 
-### `npm run build`
+Anyone who needs a way to organize and control a shopping list, for free.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ☁️ Infrastructure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The application runs on an AWS EC2 instance, use MySQL RDS instance as database and uses a GitHub Actions workflow for
+CI/CD.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📦 Installation and Execution
 
-### `npm run eject`
+To run this project locally, ensure you have **Docker** or **Podman** installed.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Steps to Run
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+ git clone https://github.com/danieltvaz/shopping-list-frontend
+ cd shopping-list-frontend
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Run the containers:
 
-## Learn More
+- If you're using Docker:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+./run-docker.sh
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- If you're using Podman:
+
+```
+./run-podman.sh
+```
+
+Make the script executable if needed:
+
+```
+chmod +x ./run-{docker,podman}.sh
+```
+
+- The backend will be available at http://localhost:3000
+- The frontend will be available at http://localhost:3001
+
+📂 Relevant Project Structure
+
+```
+root
+├── src/
+├── etc...
+├── README.md
+└── ./run-{docker,podman}.sh
+```
