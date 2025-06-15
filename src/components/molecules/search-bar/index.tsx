@@ -56,7 +56,7 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
             icon={false}
           />
           <Spacer orientation="horizontal" size="12px" />
-          <Button onClick={handleAddItem} text="Adicionar" icon />
+          <Button onClick={handleAddItem} text="Add" icon />
         </div>
         <Spacer orientation="vertical" size="12px" />
         <div className="searchbar__search-item_wrapper">
