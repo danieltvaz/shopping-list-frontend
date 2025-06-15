@@ -1,32 +1,21 @@
 import "./styles.css";
 
-import React, { ComponentProps, useRef, useState } from "react";
+import { ComponentProps } from "react";
 
-import { formatMoney } from "../../../utils";
+type Props = {
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+} & ComponentProps<"input">;
 
-export default function CurrencyInput(props: ComponentProps<"input">) {
-  const [value, setValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  function handleInputClick() {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }
-
+export default function CurrencyInput({ setValue, ...props }: Props) {
   return (
     <div className="input__wrapper">
       <input
-        inputMode="numeric"
         className="input__input_element"
-        ref={inputRef}
-        value={value}
+        value={props.value}
+        type="number"
         onChange={(e) => setValue(e.target.value)}
         {...props}
       />
-      <span onClick={handleInputClick} className="input__presentation-value_text">
-        {formatMoney(value)}
-      </span>
     </div>
   );
 }

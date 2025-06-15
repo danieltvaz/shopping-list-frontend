@@ -1,19 +1,14 @@
 .input__wrapper {
-  position: relative;
-  width: 100px;
+  width: 100%;
+  max-width: 72px;
   display: flex;
+  height: 30px;
 }
 
 .input__input_element {
-  color: transparent;
   width: 100%;
-  border: none;
   padding: 2px;
-}
-
-.input__presentation-value_text {
-  position: absolute;
-  left: 3px;
-  top: 3px;
-  font-size: 12px;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #c9c9c9;
 }
