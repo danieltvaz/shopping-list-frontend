@@ -1,6 +1,5 @@
 {
   "name": "shopping-list-frontend",
-  "homepage": "shopping-list-frontend",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
