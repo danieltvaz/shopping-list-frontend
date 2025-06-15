@@ -6,7 +6,7 @@ import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 
 type ButtonProps = ComponentProps<"button"> & {
   icon?: boolean;
-  text: string;
+  text?: string;
   variant?: "normal" | "danger";
   size?: string;
 };
@@ -18,7 +18,7 @@ export default function Button({ icon, text, variant = "normal", size = "150px",
       {...props}
       style={{ backgroundColor: variant === "normal" ? "#007bff" : "#a22607", width: size }}>
       {icon && <FontAwesomeIcon icon={faSquarePlus} color="#fff" />}
-      {text}
+      {text ?? props.children}
     </button>
   );
 }
