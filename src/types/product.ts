@@ -1,6 +1,6 @@
 export type Product = {
-  id?: string;
+  id: string;
   productName: string;
   checked: boolean;
-  price?: string;
+  price: string;
 };
