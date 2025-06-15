@@ -8,24 +8,23 @@ import Spacer from "../../atoms/spacer";
 import TextInput from "../../atoms/text-input";
 
 type SearchBarProps = {
-  addItem: (item: Product) => Promise<void>;
+  addItem: (item: Omit<Product, "id">) => Promise<void>;
   searchItem: (searchText: string) => any | void;
   uncheckAll: () => any | void;
 };
 
 export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBarProps) {
-  const [input, setInput] = useState("");
+  const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [searchText, setSearchText] = useState("");
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleAdd = useCallback(() => {
-    if (inputRef.current!.value) {
-      addItem({ productName: inputRef.current!.value, checked: false, price });
-      setInput("");
-    }
-  }, [addItem, inputRef, price]);
+  const handleAddItem = useCallback(() => {
+    addItem({
+      productName: name,
+      price: price,
+      checked: false,
+    });
+  }, [addItem, name, price]);
 
   function handleSearch() {
     searchItem(searchText);
@@ -35,53 +34,34 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
     uncheckAll();
   }
 
-  const keyupHandle = useCallback(
-    (event: any) => {
-      if (event.key === "Enter") handleAdd();
-    },
-    [handleAdd]
-  );
-
-  useEffect(() => {
-    const inputRefCopy = inputRef.current;
-
-    if (inputRefCopy) {
-      inputRefCopy.addEventListener("keyup", keyupHandle);
-    }
-
-    return () => inputRefCopy?.removeEventListener("keyup", keyupHandle);
-  }, [keyupHandle]);
-
   return (
     <header className="searchbar__header">
       <section className="searchbar__wrapper">
         <div className="searchbar__add-item_wrapper">
           <TextInput
-            placeholder="novo item"
-            value={input}
-            onChange={(event: any) => setInput(event.target.value)}
-            ref={inputRef}
+            placeholder="Novo item"
+            value={name}
+            onChange={(event: any) => setName(event.target.value)}
             width="100%"
             flex={1}
           />
           <Spacer orientation="horizontal" size="4px" />
-
           <TextInput
-            placeholder="preço"
+            placeholder="Preço"
             value={price}
             onChange={(event: any) => setPrice(event.target.value)}
             width="100%"
             flex={0.3}
-            inputMode="decimal"
+            type="number"
             icon={false}
           />
           <Spacer orientation="horizontal" size="12px" />
-          <Button onClick={handleAdd} text="Adicionar" icon />
+          <Button onClick={handleAddItem} text="Adicionar" icon />
         </div>
         <Spacer orientation="vertical" size="12px" />
         <div className="searchbar__search-item_wrapper">
           <TextInput
-            placeholder="procurar item"
+            placeholder="Procurar item"
             value={searchText}
             onChange={(event: any) => setSearchText(event.target.value)}
             width="100%"
