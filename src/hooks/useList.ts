@@ -25,7 +25,7 @@ export default function useList() {
     }
   }
 
-  async function addItem(item: Product) {
+  async function addItem(item: Omit<Product, "id">) {
     setLoading(true);
 
     try {
