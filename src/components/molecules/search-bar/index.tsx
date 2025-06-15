@@ -39,7 +39,7 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
       <section className="searchbar__wrapper">
         <div className="searchbar__add-item_wrapper">
           <TextInput
-            placeholder="Novo item"
+            placeholder="New item"
             value={name}
             onChange={(event: any) => setName(event.target.value)}
             width="100%"
@@ -47,7 +47,7 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
           />
           <Spacer orientation="horizontal" size="4px" />
           <TextInput
-            placeholder="Preço"
+            placeholder="Price"
             value={price}
             onChange={(event: any) => setPrice(event.target.value)}
             width="100%"
@@ -61,7 +61,7 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
         <Spacer orientation="vertical" size="12px" />
         <div className="searchbar__search-item_wrapper">
           <TextInput
-            placeholder="Procurar item"
+            placeholder="Search item"
             value={searchText}
             onChange={(event: any) => setSearchText(event.target.value)}
             width="100%"
@@ -83,7 +83,7 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
         </div>
         <Spacer orientation="vertical" size="12px" />
         <div className="searchbar__options_wrapper">
-          <Button text="Desmarcar todos" onClick={handleUncheckAll} variant="danger" size="auto" />
+          <Button text="Uncheck all" onClick={handleUncheckAll} variant="danger" size="auto" />
         </div>
         <Spacer orientation="vertical" size="12px" />
       </section>

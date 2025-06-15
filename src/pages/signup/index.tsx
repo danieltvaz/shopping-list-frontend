@@ -36,12 +36,12 @@ export default function SignupPage() {
     <MainContainer>
       <LoadingOverlay active={loading} />
       <div className="signup__wrapper">
-        <h1>Cadastre-se</h1>
+        <h1>Signup</h1>
         <div>
           <TextInput
             width="250px"
             type="text"
-            placeholder="nome"
+            placeholder="name"
             value={form.name}
             onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
             icon={false}
@@ -61,18 +61,18 @@ export default function SignupPage() {
           <TextInput
             width="250px"
             type="password"
-            placeholder="senha"
+            placeholder="password"
             value={form.password}
             onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
             icon={false}
           />
         </div>
         <div>
-          <Button text="Cadastrar" onClick={handleClick} />
+          <Button text="Register" onClick={handleClick} />
         </div>
         <div>
           <Link className="signup__back-button" to="/">
-            Voltar
+            Back
           </Link>
         </div>
       </div>

@@ -15,11 +15,11 @@ export default function Header() {
   return (
     <header className="header__wrapper">
       <div>
-        <p>Bem vindo de volta, {getUserData()?.name.toLocaleUpperCase()}</p>
+        <p>Welcome back, {getUserData()?.name.toLocaleUpperCase()}</p>
       </div>
       <nav>
         <button className="header__logout-button" onClick={handleLogout}>
-          Sair
+          Logout
         </button>
       </nav>
     </header>

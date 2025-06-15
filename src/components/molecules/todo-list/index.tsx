@@ -10,7 +10,7 @@ export default function TodoList({ children }: TodoListProps) {
   return (
     <section className="todolist__wrapper">
       <header className="todolist__header__wrapper">
-        <h2>Lista de compras</h2>
+        <h2>Shopping List</h2>
       </header>
       <ul className="todolist__list__wrapper">{children}</ul>
     </section>

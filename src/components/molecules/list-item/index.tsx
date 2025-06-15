@@ -111,7 +111,7 @@ export default function ListItem({ item, removeItem, updateItem }: ListItemProps
           />
         </FlexContainer>
         <FlexContainer flexGrow={{ small: 3, medium: 1 }} gap={{ small: "8px", medium: "16px" }}>
-          <Button text={isEdit ? "Salvar" : "Editar"} onClick={() => handleEdit(item)}></Button>
+          <Button text={isEdit ? "Save" : "Edit"} onClick={() => handleEdit(item)}></Button>
           <Button size="48px" variant="danger" onClick={() => handleDelete(item)}>
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>

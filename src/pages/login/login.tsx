@@ -38,7 +38,7 @@ export default function LoginPage() {
       <LoadingOverlay active={loading} />
       <div className="login__wrapper">
         <img src={logo} alt="shopping list" />
-        <h1>Faça login para continuar</h1>
+        <h1>Login to proceed</h1>
         <div>
           <TextInput
             width="250px"
@@ -52,18 +52,18 @@ export default function LoginPage() {
           <TextInput
             width="250px"
             type="password"
-            placeholder="senha"
+            placeholder="password"
             value={form.password}
             onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
             icon={false}
           />
         </div>
         <div>
-          <Button text="Entrar" onClick={handleClick} />
+          <Button text="Signin" onClick={handleClick} />
         </div>
         <div>
           <Link className="login__signup-button" to="/signup">
-            Cadastrar
+            Signup
           </Link>
         </div>
       </div>
