@@ -18,9 +18,8 @@ export const getResponsiveValue = <T>(
 
     if (value === undefined) {
       const orderedBreakpoints: ResponseSizes[] = ["small", "medium", "large"];
-      const currentIndex = orderedBreakpoints.indexOf(breakpoint);
 
-      for (let i = currentIndex + 1; i < orderedBreakpoints.length; i++) {
+      for (let i = orderedBreakpoints.length - 1; i >= 0; i--) {
         const largerBreakpoint = orderedBreakpoints[i];
         if (responsiveValue[largerBreakpoint] !== undefined) {
           return responsiveValue[largerBreakpoint]!;
@@ -50,10 +49,6 @@ export default function useResponsive() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
-
-  useEffect(() => {
-    console.log(breakpoint);
-  }, [breakpoint]);
 
   return breakpoint as ResponseSizes;
 }

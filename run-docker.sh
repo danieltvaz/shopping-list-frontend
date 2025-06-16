@@ -19,6 +19,9 @@ docker run -d \
   -p $PORT:$PORT \
   -e CHOKIDAR_USEPOLLING=true \
   -e BROWSER=none \
+  -e FAST_REFRESH=true \
+  -e WATCHPACK_POLLING=true \
+  -v ./:/app \
   $IMAGE_NAME
 
 
