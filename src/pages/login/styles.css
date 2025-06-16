@@ -17,9 +17,3 @@
   background-color: transparent;
   cursor: pointer;
 }
-
-@media screen and (min-width: 280px) and (max-width: 1023px) {
-  .login__wrapper {
-    width: 100%;
-  }
-}
