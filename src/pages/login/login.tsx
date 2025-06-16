@@ -27,7 +27,6 @@ export default function LoginPage() {
 
     try {
       await login(form.email, form.password, () => navigate("/products"));
-    } catch {
     } finally {
       setLoading(false);
     }
