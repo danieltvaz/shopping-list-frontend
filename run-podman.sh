@@ -10,7 +10,7 @@ CONTAINER_NAME="shopping-list-front"
 podman rm -f $CONTAINER_NAME 2>/dev/null || true
 
 
-podman build -t $IMAGE_NAME -f Dockerfile . --no-cache=true
+podman build -t $IMAGE_NAME -f Dockerfile .
 
 echo "🚀 Starting Frontend..."
 podman run -d \
