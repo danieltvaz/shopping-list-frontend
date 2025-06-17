@@ -1,7 +1,8 @@
 import "./styles.css";
 
-import React, { ComponentProps } from "react";
 import useResponsive, { ResponsiveValue, getResponsiveValue } from "../../../hooks/useResponsive";
+
+import { ComponentProps } from "react";
 
 type FlexContainerProps = {
   flexDirection?: ResponsiveValue<"row" | "column" | "row-reverse" | "column-reverse">;
