@@ -1,8 +1,7 @@
 import "./styles.css";
 
+import React, { ComponentProps } from "react";
 import useResponsive, { ResponsiveValue, getResponsiveValue } from "../../../hooks/useResponsive";
-
-import { ComponentProps } from "react";
 
 type FlexContainerProps = {
   flexDirection?: ResponsiveValue<"row" | "column" | "row-reverse" | "column-reverse">;
@@ -20,10 +19,14 @@ type FlexContainerProps = {
   padding?: ResponsiveValue<string>;
   borderRadius?: ResponsiveValue<string>;
   visible?: ResponsiveValue<boolean>;
+  as?: keyof HTMLElementTagNameMap;
+  border?: string;
 } & ComponentProps<"div">;
 
 export default function FlexContainer({ children, ...props }: FlexContainerProps) {
   const breakpoint = useResponsive();
+
+  const Component = props.as || "div";
 
   const style = {
     display: "flex",
@@ -39,6 +42,7 @@ export default function FlexContainer({ children, ...props }: FlexContainerProps
     borderRadius: getResponsiveValue(props.borderRadius, breakpoint, "0px"),
     visible: getResponsiveValue(props.visible, breakpoint, true) ? "visible" : "hidden",
     backgroundColor: props.backgroundColor || "transparent",
+    border: props.border || "none",
     ...props.style,
   };
 
@@ -47,8 +51,8 @@ export default function FlexContainer({ children, ...props }: FlexContainerProps
   }
 
   return (
-    <div className={`flex-container__wrapper`} style={style}>
+    <Component className={`flex-container__wrapper`} style={style}>
       {children}
-    </div>
+    </Component>
   );
 }
