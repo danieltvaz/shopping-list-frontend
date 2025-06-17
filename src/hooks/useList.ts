@@ -1,5 +1,5 @@
 import { AddProductParams, RemoveProductParams, UpdateProductParams } from "../types/requests";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Product } from "../types/product";
 import axiosInstance from "../services/axios";
@@ -7,6 +7,21 @@ import axiosInstance from "../services/axios";
 export default function useList() {
   const [items, setItems] = useState([] as Product[]);
   const [loading, setLoading] = useState(false);
+  const [totalSum, setTotalSum] = useState(0);
+  const [checkedSum, setCheckedSum] = useState(0);
+
+  const calculateTotalSum = useCallback(() => {
+    return items.reduce((acc, item) => acc + Number(item.price), 0);
+  }, [items]);
+
+  const calculateTotalCheckedValues = useCallback(() => {
+    return items.reduce((acc, item) => {
+      if (item.checked) {
+        return acc + Number(item.price);
+      }
+      return acc;
+    }, 0);
+  }, [items]);
 
   async function updateItem(item: Product) {
     setLoading(true);
@@ -91,5 +106,10 @@ export default function useList() {
     getItems();
   }, []);
 
-  return { updateItem, addItem, removeItem, items, loading, getItems, uncheckAll };
+  useEffect(() => {
+    setTotalSum(calculateTotalSum());
+    setCheckedSum(calculateTotalCheckedValues());
+  }, [items]);
+
+  return { updateItem, addItem, removeItem, items, loading, getItems, uncheckAll, totalSum, checkedSum };
 }

@@ -9,14 +9,14 @@ import TodoList from "../../components/molecules/todo-list";
 import useList from "../../hooks/useList";
 
 export default function ProductListPage() {
-  const { items, addItem, removeItem, updateItem, loading, getItems, uncheckAll } = useList();
+  const { items, addItem, removeItem, updateItem, loading, getItems, uncheckAll, totalSum, checkedSum } = useList();
 
   return (
     <MainContainer>
       <LoadingOverlay active={loading} />
       <Header />
       <SearchBar addItem={addItem} searchItem={getItems} uncheckAll={uncheckAll} />
-      <TodoList>
+      <TodoList totalSum={totalSum} checkedSum={checkedSum}>
         {items?.map((item) => (
           <React.Fragment key={item.id}>
             <ListItem item={item} key={item.id} removeItem={removeItem} updateItem={updateItem} />
