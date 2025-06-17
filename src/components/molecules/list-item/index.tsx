@@ -13,8 +13,8 @@ import { isObjectEqual } from "../../../utils";
 
 type ListItemProps = {
   item: Product;
-  removeItem: (product: Product) => any;
-  updateItem: (product: Product) => any;
+  removeItem: (product: Product) => unknown;
+  updateItem: (product: Product) => unknown;
 };
 
 export default function ListItem({ item, removeItem, updateItem }: ListItemProps) {
