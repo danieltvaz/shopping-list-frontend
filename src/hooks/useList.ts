@@ -109,7 +109,7 @@ export default function useList() {
   useEffect(() => {
     setTotalSum(calculateTotalSum());
     setCheckedSum(calculateTotalCheckedValues());
-  }, [items]);
+  }, [items, calculateTotalCheckedValues, calculateTotalSum]);
 
   return { updateItem, addItem, removeItem, items, loading, getItems, uncheckAll, totalSum, checkedSum };
 }

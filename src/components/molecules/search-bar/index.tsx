@@ -1,22 +1,17 @@
 import "./styles.css";
 
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 
 import Button from "../../atoms/button";
-import { Product } from "../../../types/product";
+import { ProductsContext } from "../../../contexts/products/productsContext";
 import Spacer from "../../atoms/spacer";
 import TextInput from "../../atoms/text-input";
 
-type SearchBarProps = {
-  addItem: (item: Omit<Product, "id">) => Promise<void>;
-  searchItem: (searchText: string) => any | void;
-  uncheckAll: () => any | void;
-};
-
-export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBarProps) {
+export default function SearchBar() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [searchText, setSearchText] = useState("");
+  const { addItem, uncheckAll, getItems } = useContext(ProductsContext);
 
   const handleAddItem = useCallback(() => {
     addItem({
@@ -27,7 +22,7 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
   }, [addItem, name, price]);
 
   function handleSearch() {
-    searchItem(searchText);
+    getItems(searchText);
   }
 
   function handleUncheckAll() {
@@ -41,7 +36,7 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
           <TextInput
             placeholder="New item"
             value={name}
-            onChange={(event: any) => setName(event.target.value)}
+            onChange={(event) => setName(event.target.value)}
             width="100%"
             flex={1}
           />
@@ -49,11 +44,10 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
           <TextInput
             placeholder="Price"
             value={price}
-            onChange={(event: any) => setPrice(event.target.value)}
+            onChange={(event) => setPrice(event.target.value)}
             width="100%"
             flex={0.3}
             type="number"
-            icon={false}
           />
           <Spacer orientation="horizontal" size="12px" />
           <Button onClick={handleAddItem} text="Add" icon />
@@ -63,10 +57,9 @@ export default function SearchBar({ addItem, searchItem, uncheckAll }: SearchBar
           <TextInput
             placeholder="Search item"
             value={searchText}
-            onChange={(event: any) => setSearchText(event.target.value)}
+            onChange={(event) => setSearchText(event.target.value)}
             width="100%"
             flex={1}
-            icon={false}
           />
           <Spacer orientation="horizontal" size="12px" />
           <Button onClick={handleSearch} text="&#10005;" icon={false} variant="danger" size="73px" />

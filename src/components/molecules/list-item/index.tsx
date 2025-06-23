@@ -1,26 +1,27 @@
 import "./styles.css";
 
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useContext, useState } from "react";
 
 import Button from "../../atoms/button";
 import CurrencyInput from "../../atoms/currency-input";
 import FlexContainer from "../../atoms/flex-container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "../../../types/product";
+import { ProductsContext } from "../../../contexts/products/productsContext";
 import TextInput from "../../atoms/text-input";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { isObjectEqual } from "../../../utils";
 
 type ListItemProps = {
   item: Product;
-  removeItem: (product: Product) => unknown;
-  updateItem: (product: Product) => unknown;
 };
 
-export default function ListItem({ item, removeItem, updateItem }: ListItemProps) {
+export default function ListItem({ item }: ListItemProps) {
   const [isEdit, setIsEdit] = useState(false);
   const [valueInput, setValueInput] = useState(item.price);
   const [nameInput, setNameInput] = useState(item.productName);
+
+  const { removeItem, updateItem } = useContext(ProductsContext);
 
   const handleCheck = useCallback(
     (event: ChangeEvent<HTMLInputElement>, currentItem: Product) => {

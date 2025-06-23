@@ -1,25 +1,28 @@
+import React, { useContext } from "react";
+
+import Costs from "../../components/molecules/costs";
 import Header from "../../components/molecules/header";
 import ListItem from "../../components/molecules/list-item";
 import LoadingOverlay from "../../components/atoms/loading-overlay";
 import MainContainer from "../../components/layout/main-container";
-import React from "react";
+import { ProductsContext } from "../../contexts/products/productsContext";
 import SearchBar from "../../components/molecules/search-bar";
 import Spacer from "../../components/atoms/spacer";
 import TodoList from "../../components/molecules/todo-list";
-import useList from "../../hooks/useList";
 
 export default function ProductListPage() {
-  const { items, addItem, removeItem, updateItem, loading, getItems, uncheckAll, totalSum, checkedSum } = useList();
+  const { items, loading } = useContext(ProductsContext);
 
   return (
     <MainContainer>
       <LoadingOverlay active={loading} />
       <Header />
-      <SearchBar addItem={addItem} searchItem={getItems} uncheckAll={uncheckAll} />
-      <TodoList totalSum={totalSum} checkedSum={checkedSum}>
+      <SearchBar />
+      <Costs />
+      <TodoList>
         {items?.map((item) => (
           <React.Fragment key={item.id}>
-            <ListItem item={item} key={item.id} removeItem={removeItem} updateItem={updateItem} />
+            <ListItem item={item} key={item.id} />
             <Spacer orientation="vertical" size="16px" />
           </React.Fragment>
         ))}

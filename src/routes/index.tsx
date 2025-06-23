@@ -1,5 +1,6 @@
 import LoginPage from "../pages/login/login";
 import ProductListPage from "../pages/product-list";
+import ProductsContextProvider from "../contexts/products/ProductsContextProvider";
 import ProtectedRoute from "../hocs/ProtectedRoute";
 import SignupPage from "../pages/signup";
 import { createBrowserRouter } from "react-router-dom";
@@ -18,7 +19,9 @@ const router = createBrowserRouter([
     path: "/products",
     element: (
       <ProtectedRoute>
-        <ProductListPage />
+        <ProductsContextProvider>
+          <ProductListPage />
+        </ProductsContextProvider>
       </ProtectedRoute>
     ),
   },

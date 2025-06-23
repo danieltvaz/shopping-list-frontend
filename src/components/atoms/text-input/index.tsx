@@ -1,14 +1,13 @@
 import "./styles.css";
 
-import { ComponentPropsWithRef } from "react";
+import { ComponentProps } from "react";
 
 type TextInputCustomProps = {
-  icon?: boolean;
   width?: string;
   flex?: number;
-} & ComponentPropsWithRef<"input">;
+} & ComponentProps<"input">;
 
-function TextInput({ icon = true, width, flex, ...props }: TextInputCustomProps) {
+function TextInput({ width, flex, ...props }: TextInputCustomProps) {
   return (
     <div className="textinput__wrapper" style={{ flex, width }}>
       <input className="textinput__input" style={{ width }} {...props} />
