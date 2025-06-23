@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   flex: 1;
-  height: 30px;
+  min-height: 30px;
 }
 
 .textinput__input {

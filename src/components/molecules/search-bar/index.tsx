@@ -3,8 +3,9 @@ import "./styles.css";
 import { useCallback, useContext, useState } from "react";
 
 import Button from "../../atoms/button";
+import FlexContainer from "../../atoms/flex-container";
 import { ProductsContext } from "../../../contexts/products/productsContext";
-import Spacer from "../../atoms/spacer";
+import Select from "../../atoms/select";
 import TextInput from "../../atoms/text-input";
 
 export default function SearchBar() {
@@ -13,12 +14,15 @@ export default function SearchBar() {
   const [searchText, setSearchText] = useState("");
   const { addItem, uncheckAll, getItems } = useContext(ProductsContext);
 
-  const handleAddItem = useCallback(() => {
-    addItem({
+  const handleAddItem = useCallback(async () => {
+    await addItem({
       productName: name,
       price: price,
       checked: false,
     });
+
+    setName("");
+    setPrice("");
   }, [addItem, name, price]);
 
   function handleSearch() {
@@ -30,9 +34,9 @@ export default function SearchBar() {
   }
 
   return (
-    <header className="searchbar__header">
-      <section className="searchbar__wrapper">
-        <div className="searchbar__add-item_wrapper">
+    <FlexContainer>
+      <FlexContainer flexDirection={{ small: "column" }} gap={{ small: "12px" }} flexGrow={{ small: 1 }}>
+        <FlexContainer flexDirection={{ small: "column" }} gap={{ small: "8px" }}>
           <TextInput
             placeholder="New item"
             value={name}
@@ -40,20 +44,41 @@ export default function SearchBar() {
             width="100%"
             flex={1}
           />
-          <Spacer orientation="horizontal" size="4px" />
-          <TextInput
-            placeholder="Price"
-            value={price}
-            onChange={(event) => setPrice(event.target.value)}
-            width="100%"
-            flex={0.3}
-            type="number"
-          />
-          <Spacer orientation="horizontal" size="12px" />
-          <Button onClick={handleAddItem} text="Add" icon />
-        </div>
-        <Spacer orientation="vertical" size="12px" />
-        <div className="searchbar__search-item_wrapper">
+          <FlexContainer gap={{ small: "8px" }}>
+            <TextInput
+              placeholder="Price"
+              value={price}
+              onChange={(event) => setPrice(event.target.value)}
+              width="100%"
+              flex={1}
+              type="number"
+            />
+            <TextInput
+              placeholder="Quantity"
+              value={price}
+              onChange={(event) => setPrice(event.target.value)}
+              width="100%"
+              flex={0.5}
+              type="number"
+            />
+            <Select
+              options={[
+                {
+                  label: "KG",
+                  value: "KG",
+                },
+                {
+                  label: "UN",
+                  value: "UN",
+                },
+              ]}
+            />
+          </FlexContainer>
+        </FlexContainer>
+        <FlexContainer>
+          <Button onClick={handleAddItem} text="Add" icon size="100%" />
+        </FlexContainer>
+        <FlexContainer gap={{ small: "4px" }}>
           <TextInput
             placeholder="Search item"
             value={searchText}
@@ -61,9 +86,7 @@ export default function SearchBar() {
             width="100%"
             flex={1}
           />
-          <Spacer orientation="horizontal" size="12px" />
           <Button onClick={handleSearch} text="&#10005;" icon={false} variant="danger" size="73px" />
-          <Spacer orientation="horizontal" size="4px" />
           <Button
             onClick={() => {
               setSearchText("");
@@ -73,13 +96,11 @@ export default function SearchBar() {
             icon={false}
             size="73px"
           />
-        </div>
-        <Spacer orientation="vertical" size="12px" />
-        <div className="searchbar__options_wrapper">
+        </FlexContainer>
+        <FlexContainer>
           <Button text="Uncheck all" onClick={handleUncheckAll} variant="danger" size="auto" />
-        </div>
-        <Spacer orientation="vertical" size="12px" />
-      </section>
-    </header>
+        </FlexContainer>
+      </FlexContainer>
+    </FlexContainer>
   );
 }

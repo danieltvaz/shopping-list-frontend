@@ -1,4 +1,4 @@
-import { AddProductParams, RemoveProductParams, UpdateProductParams } from "../types/requests";
+import { AddProductParams, RemoveProductParams } from "../types/requests";
 import { useCallback, useEffect, useState } from "react";
 
 import { Product } from "../types/product";
@@ -23,23 +23,6 @@ export default function useList() {
     }, 0);
   }, [items]);
 
-  async function updateItem(item: Product) {
-    setLoading(true);
-
-    try {
-      await axiosInstance.put("/list/products", {
-        product: {
-          ...item,
-        },
-      } as UpdateProductParams);
-      await getItems();
-    } catch {
-      alert("Error while updating item");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function addItem(item: Omit<Product, "id">) {
     setLoading(true);
 
@@ -50,6 +33,23 @@ export default function useList() {
       await getItems();
     } catch {
       alert("Error while adding item");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function updateItem(item: Product) {
+    setLoading(true);
+
+    try {
+      await axiosInstance.put("/list/products", {
+        product: {
+          ...item,
+        },
+      });
+      await getItems();
+    } catch {
+      alert("Error while updating item");
     } finally {
       setLoading(false);
     }

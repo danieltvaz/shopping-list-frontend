@@ -1,5 +1,3 @@
-import "./styles.css";
-
 import { ChangeEvent, useCallback, useContext, useState } from "react";
 
 import Button from "../../atoms/button";
@@ -8,7 +6,9 @@ import FlexContainer from "../../atoms/flex-container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "../../../types/product";
 import { ProductsContext } from "../../../contexts/products/productsContext";
+import Select from "../../atoms/select";
 import TextInput from "../../atoms/text-input";
+import { UNITS } from "../../../constants/units";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { isObjectEqual } from "../../../utils";
 
@@ -20,6 +20,8 @@ export default function ListItem({ item }: ListItemProps) {
   const [isEdit, setIsEdit] = useState(false);
   const [valueInput, setValueInput] = useState(item.price);
   const [nameInput, setNameInput] = useState(item.productName);
+  const [quantity, setQuantity] = useState(item.quantity);
+  const [unity, setUnity] = useState(item.unity);
 
   const { removeItem, updateItem } = useContext(ProductsContext);
 
@@ -50,6 +52,8 @@ export default function ListItem({ item }: ListItemProps) {
         productName: nameInput,
         price: valueInput,
         checked: itemToBeEdited.checked,
+        quantity: quantity,
+        unity: unity,
       };
 
       if (!isObjectEqual(updatedItem, itemToBeEdited)) {
@@ -101,21 +105,34 @@ export default function ListItem({ item }: ListItemProps) {
         flexGrow={{ small: 1 }}
         flexDirection={{ small: "row" }}
         gap={{ small: "8px" }}
-        justifyContent={{ small: "flex-start", medium: "flex-end" }}>
-        <FlexContainer visible={{ small: true, medium: false }} flexGrow={{ small: 1 }}>
-          <input
-            type="checkbox"
-            id={item.id}
-            onChange={(event) => handleCheck(event, item)}
-            checked={item.checked}
-            style={{ width: "24px", height: "24px", padding: "0", margin: "0" }}
-          />
-        </FlexContainer>
+        justifyContent={{ small: "flex-start", medium: "flex-end" }}
+        alignItems={{ small: "center" }}
+        visible={{ small: true, medium: false }}>
+        <input
+          type="checkbox"
+          id={item.id}
+          onChange={(event) => handleCheck(event, item)}
+          checked={item.checked}
+          style={{ width: "24px", height: "24px", padding: "0", margin: "0" }}
+        />
         <FlexContainer
           flexGrow={{ small: 3, medium: 1 }}
           gap={{ small: "8px", medium: "16px" }}
           justifyContent={{ small: "flex-end", medium: "flex-end" }}>
-          <Button text={isEdit ? "Save" : "Edit"} onClick={() => handleEdit(item)}></Button>
+          <TextInput
+            type="number"
+            value={quantity}
+            onChange={(event) => setQuantity(Number(event.currentTarget.value))}
+            disabled={!isEdit}
+            placeholder="Quantity"
+          />
+          <Select
+            disabled={!isEdit}
+            value={unity}
+            options={UNITS}
+            onChange={(event) => setUnity(event.currentTarget.value as Product["unity"])}
+          />
+          <Button size="64px" text={isEdit ? "Save" : "Edit"} onClick={() => handleEdit(item)} />
           <Button size="48px" variant="danger" onClick={() => handleDelete(item)}>
             <FontAwesomeIcon icon={faTrashCan} />
           </Button>

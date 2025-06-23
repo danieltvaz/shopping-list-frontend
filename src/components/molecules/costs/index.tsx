@@ -7,15 +7,12 @@ export default function Costs() {
   const { totalSum, checkedSum } = useContext(ProductsContext);
 
   return (
-    <FlexContainer flexDirection={{ small: "column" }} gap={{ small: "8px" }}>
+    <FlexContainer gap={{ small: "4px" }}>
       <FlexContainer>
-        <h2 style={{ fontWeight: "bold" }}>Shopping List</h2>
+        <span>Checked cost: {formatMoney(checkedSum?.toString())}</span>
       </FlexContainer>
       <FlexContainer>
         <span>Total cost: {formatMoney(totalSum?.toString())}</span>
-      </FlexContainer>
-      <FlexContainer>
-        <span>Checked cost: {formatMoney(checkedSum?.toString())}</span>
       </FlexContainer>
     </FlexContainer>
   );

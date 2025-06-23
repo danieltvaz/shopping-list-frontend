@@ -3,4 +3,6 @@ export type Product = {
   productName: string;
   checked: boolean;
   price: string;
+  quantity: number;
+  unity: "KG" | "UN";
 };
