@@ -22,6 +22,7 @@ type FlexContainerProps = {
   visible?: ResponsiveValue<boolean>;
   as?: keyof HTMLElementTagNameMap;
   border?: string;
+  margin?: ResponsiveValue<string>;
 } & ComponentProps<"div">;
 
 export default function FlexContainer({ children, ...props }: FlexContainerProps) {
@@ -36,12 +37,13 @@ export default function FlexContainer({ children, ...props }: FlexContainerProps
     alignItems: getResponsiveValue(props.alignItems, breakpoint, "flex-start"),
     flexWrap: getResponsiveValue(props.flexWrap, breakpoint, "nowrap"),
     gap: getResponsiveValue(props.gap, breakpoint, "0"),
-    width: getResponsiveValue(props.width, breakpoint, "100%"),
+    width: getResponsiveValue(props.width, breakpoint, "auto"),
     height: getResponsiveValue(props.height, breakpoint, "auto"),
     flexGrow: getResponsiveValue(props.flexGrow, breakpoint, 0),
     padding: getResponsiveValue(props.padding, breakpoint, "0px"),
     borderRadius: getResponsiveValue(props.borderRadius, breakpoint, "0px"),
     visible: getResponsiveValue(props.visible, breakpoint, true) ? "visible" : "hidden",
+    margin: getResponsiveValue(props.margin, breakpoint, "0px"),
     backgroundColor: props.backgroundColor || "transparent",
     border: props.border || "none",
     ...props.style,

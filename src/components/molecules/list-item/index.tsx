@@ -1,7 +1,6 @@
-import { ChangeEvent, useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 
 import Button from "../../atoms/button";
-import CurrencyInput from "../../atoms/currency-input";
 import FlexContainer from "../../atoms/flex-container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "../../../types/product";
@@ -26,11 +25,11 @@ export default function ListItem({ item }: ListItemProps) {
   const { removeItem, updateItem } = useContext(ProductsContext);
 
   const handleCheck = useCallback(
-    (event: ChangeEvent<HTMLInputElement>, currentItem: Product) => {
-      const updatedItem = { ...currentItem, checked: event.target.checked };
+    (currentItem: Product) => {
+      const updatedItem = { ...currentItem, checked: !item.checked };
       updateItem(updatedItem);
     },
-    [updateItem]
+    [item.checked, updateItem]
   );
 
   const handleDelete = useCallback(
@@ -62,81 +61,55 @@ export default function ListItem({ item }: ListItemProps) {
 
       setIsEdit(false);
     },
-    [isEdit, nameInput, valueInput, updateItem]
+    [isEdit, nameInput, valueInput, quantity, unity, updateItem]
   );
 
   return (
     <FlexContainer
-      borderRadius={{ small: "4px", medium: "4px" }}
-      padding={{ small: "16px", medium: "24px" }}
-      gap={{ small: "8px", medium: "16px" }}
-      flexDirection={{ small: "column", medium: "row" }}
-      backgroundColor={item.checked ? "#f1f8ff" : "#fff7f7"}
-      alignItems={{ small: "center", medium: "center" }}>
-      <FlexContainer
-        visible={{ small: false, medium: true }}
-        width={{ small: "100%", medium: "auto" }}
-        flexGrow={{ small: 1, medium: 1 }}
-        flexDirection={{ small: "column", medium: "row" }}
-        alignItems={{ small: "center", medium: "center" }}
-        justifyContent={{ small: "center", medium: "flex-start" }}>
-        <input
-          type="checkbox"
-          id={item.id}
-          onChange={(event) => handleCheck(event, item)}
-          checked={item.checked}
-          style={{ width: "24px", height: "24px", padding: "0", margin: "0" }}
-        />
-      </FlexContainer>
-      <FlexContainer
-        flexDirection={{ small: "row", medium: "row" }}
-        flexGrow={{ small: 5, medium: 5 }}
-        gap={{ small: "8px", medium: "16px" }}
-        width={{ small: "100%", medium: "100%" }}>
+      backgroundColor={item.checked ? "#e9faff" : "#fff"}
+      width={{ small: "100%" }}
+      flexDirection={{ small: "column" }}
+      gap={{ small: "8px" }}
+      padding={{ small: "8px" }}
+      borderRadius={{ small: "4px" }}>
+      <FlexContainer width={{ small: "100%" }}>
         <TextInput
+          disabled={!isEdit}
           value={nameInput}
           onChange={(event) => setNameInput(event.currentTarget.value)}
-          disabled={!isEdit}
           width="100%"
+          placeholder="Item name"
         />
-        <CurrencyInput value={valueInput} setValue={setValueInput} disabled={!isEdit} width="100%" />
       </FlexContainer>
-      <FlexContainer
-        flexGrow={{ small: 1 }}
-        flexDirection={{ small: "row" }}
-        gap={{ small: "8px" }}
-        justifyContent={{ small: "flex-start", medium: "flex-end" }}
-        alignItems={{ small: "center" }}
-        visible={{ small: true, medium: false }}>
-        <input
-          type="checkbox"
-          id={item.id}
-          onChange={(event) => handleCheck(event, item)}
-          checked={item.checked}
-          style={{ width: "24px", height: "24px", padding: "0", margin: "0" }}
+      <FlexContainer gap={{ small: "8px" }} width={{ small: "100%" }}>
+        <TextInput
+          disabled={!isEdit}
+          value={valueInput}
+          onChange={(event) => setValueInput(event.currentTarget.value)}
+          placeholder="Price"
+          width="100%"
+          type="number"
         />
-        <FlexContainer
-          flexGrow={{ small: 3, medium: 1 }}
-          gap={{ small: "8px", medium: "16px" }}
-          justifyContent={{ small: "flex-end", medium: "flex-end" }}>
-          <TextInput
-            type="number"
-            value={quantity}
-            onChange={(event) => setQuantity(Number(event.currentTarget.value))}
-            disabled={!isEdit}
-            placeholder="Quantity"
-          />
-          <Select
-            disabled={!isEdit}
-            value={unity}
-            options={UNITS}
-            onChange={(event) => setUnity(event.currentTarget.value as Product["unity"])}
-          />
-          <Button size="64px" text={isEdit ? "Save" : "Edit"} onClick={() => handleEdit(item)} />
-          <Button size="48px" variant="danger" onClick={() => handleDelete(item)}>
-            <FontAwesomeIcon icon={faTrashCan} />
-          </Button>
-        </FlexContainer>
+        <TextInput
+          disabled={!isEdit}
+          value={quantity}
+          onChange={(event) => setQuantity(Number(event.currentTarget.value))}
+          placeholder="Quantity"
+          width="100%"
+          type="number"
+        />
+        <Select
+          disabled={!isEdit}
+          options={UNITS}
+          onChange={(event) => setUnity(event.currentTarget.value as Product["unity"])}
+        />
+      </FlexContainer>
+      <FlexContainer gap={{ small: "4px" }}>
+        <Button onClick={() => handleCheck(item)} text={item.checked ? "Uncheck" : "Check"} />
+        <Button onClick={() => handleEdit(item)} text={isEdit ? "Save" : "Edit"} />
+        <Button onClick={() => handleDelete(item)} variant="danger">
+          <FontAwesomeIcon icon={faTrashCan} />
+        </Button>
       </FlexContainer>
     </FlexContainer>
   );

@@ -7,12 +7,12 @@ export default function Costs() {
   const { totalSum, checkedSum } = useContext(ProductsContext);
 
   return (
-    <FlexContainer gap={{ small: "4px" }}>
+    <FlexContainer gap={{ small: "4px" }} width={{ small: "100vw" }} justifyContent={{ small: "space-between" }}>
       <FlexContainer>
-        <span>Checked cost: {formatMoney(checkedSum?.toString())}</span>
+        <span>Current: {formatMoney(checkedSum?.toString())}</span>
       </FlexContainer>
       <FlexContainer>
-        <span>Total cost: {formatMoney(totalSum?.toString())}</span>
+        <span>Total: {formatMoney(totalSum?.toString())}</span>
       </FlexContainer>
     </FlexContainer>
   );

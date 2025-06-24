@@ -18,7 +18,9 @@ export default function ProductListPage() {
       as="main"
       flexDirection={{ small: "column" }}
       padding={{ small: "12px" }}
-      height={{ small: "100vh" }}>
+      height={{ small: "100vh" }}
+      width={{ small: "100%", medium: "70%" }}
+      alignItems={{ small: "center", medium: "center" }}>
       <LoadingOverlay active={loading} />
       <Header />
       <Spacer orientation="vertical" size="12px" />
