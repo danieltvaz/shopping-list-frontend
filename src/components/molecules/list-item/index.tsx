@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 
 import Button from "../../atoms/button";
 import FlexContainer from "../../atoms/flex-container";
