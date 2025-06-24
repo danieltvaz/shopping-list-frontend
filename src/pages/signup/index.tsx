@@ -27,6 +27,7 @@ export default function SignupPage() {
       await signup(form.email, form.password, form.name);
       navigate("/");
     } catch {
+      /* empty */
     } finally {
       setLoading(false);
     }
@@ -44,7 +45,6 @@ export default function SignupPage() {
             placeholder="name"
             value={form.name}
             onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-            icon={false}
           />
           <Spacer orientation="vertical" size="12px" />
 
@@ -54,7 +54,6 @@ export default function SignupPage() {
             placeholder="e-mail"
             value={form.email}
             onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
-            icon={false}
           />
           <Spacer orientation="vertical" size="12px" />
 
@@ -64,7 +63,6 @@ export default function SignupPage() {
             placeholder="password"
             value={form.password}
             onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
-            icon={false}
           />
         </div>
         <div>

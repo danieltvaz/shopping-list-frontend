@@ -45,7 +45,6 @@ export default function LoginPage() {
             placeholder="e-mail"
             value={form.email}
             onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
-            icon={false}
           />
           <Spacer orientation="vertical" size="12px" />
           <TextInput
@@ -54,7 +53,6 @@ export default function LoginPage() {
             placeholder="password"
             value={form.password}
             onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
-            icon={false}
           />
         </div>
         <div>
