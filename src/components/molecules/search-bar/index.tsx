@@ -13,7 +13,7 @@ export default function SearchBar() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [searchText, setSearchText] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState<Product["unit"]>("KG");
   const { addItem, uncheckAll, getItems } = useContext(ProductsContext);
 
@@ -28,7 +28,7 @@ export default function SearchBar() {
 
     setName("");
     setPrice("");
-    setQuantity(0);
+    setQuantity("0");
     setUnit("KG");
   }, [addItem, name, price, quantity, unit]);
 
@@ -63,7 +63,7 @@ export default function SearchBar() {
             <TextInput
               placeholder="Quantity"
               value={quantity}
-              onChange={(event) => setQuantity(Number(event.target.value))}
+              onChange={(event) => setQuantity(event.target.value)}
               width="100%"
               flex={0.5}
               type="number"
