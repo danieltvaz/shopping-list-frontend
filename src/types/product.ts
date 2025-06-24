@@ -4,5 +4,5 @@ export type Product = {
   checked: boolean;
   price: string;
   quantity: number;
-  unity: "KG" | "UN";
+  unit: "KG" | "UN";
 };

@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import Button from "../../atoms/button";
 import FlexContainer from "../../atoms/flex-container";
@@ -20,7 +20,7 @@ export default function ListItem({ item }: ListItemProps) {
   const [valueInput, setValueInput] = useState(item.price);
   const [nameInput, setNameInput] = useState(item.productName);
   const [quantity, setQuantity] = useState(item.quantity);
-  const [unity, setUnity] = useState(item.unity);
+  const [unit, setUnit] = useState(item.unit);
 
   const { removeItem, updateItem } = useContext(ProductsContext);
 
@@ -52,7 +52,7 @@ export default function ListItem({ item }: ListItemProps) {
         price: valueInput,
         checked: itemToBeEdited.checked,
         quantity: quantity,
-        unity: unity,
+        unit: unit,
       };
 
       if (!isObjectEqual(updatedItem, itemToBeEdited)) {
@@ -61,8 +61,12 @@ export default function ListItem({ item }: ListItemProps) {
 
       setIsEdit(false);
     },
-    [isEdit, nameInput, valueInput, quantity, unity, updateItem]
+    [isEdit, nameInput, valueInput, quantity, unit, updateItem]
   );
+
+  useEffect(() => {
+    console.log(unit);
+  }, [unit]);
 
   return (
     <FlexContainer
@@ -101,7 +105,8 @@ export default function ListItem({ item }: ListItemProps) {
         <Select
           disabled={!isEdit}
           options={UNITS}
-          onChange={(event) => setUnity(event.currentTarget.value as Product["unity"])}
+          value={unit}
+          onChange={(event) => setUnit(event.target.value as Product["unit"])}
         />
       </FlexContainer>
       <FlexContainer gap={{ small: "4px" }}>

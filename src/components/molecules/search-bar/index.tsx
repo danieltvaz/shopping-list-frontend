@@ -14,7 +14,7 @@ export default function SearchBar() {
   const [price, setPrice] = useState("");
   const [searchText, setSearchText] = useState("");
   const [quantity, setQuantity] = useState(0);
-  const [unity, setUnity] = useState<Product["unity"]>("KG");
+  const [unit, setUnit] = useState<Product["unit"]>("KG");
   const { addItem, uncheckAll, getItems } = useContext(ProductsContext);
 
   const handleAddItem = useCallback(async () => {
@@ -23,14 +23,14 @@ export default function SearchBar() {
       price: price,
       checked: false,
       quantity,
-      unity,
+      unit,
     });
 
     setName("");
     setPrice("");
     setQuantity(0);
-    setUnity("KG");
-  }, [addItem, name, price, quantity, unity]);
+    setUnit("KG");
+  }, [addItem, name, price, quantity, unit]);
 
   function handleSearch() {
     getItems(searchText);
@@ -69,7 +69,7 @@ export default function SearchBar() {
               type="number"
             />
             <Select
-              onChange={(event) => setUnity(event.currentTarget.value as Product["unity"])}
+              onChange={(event) => setUnit(event.currentTarget.value as Product["unit"])}
               options={[
                 {
                   label: "KG",
