@@ -64,10 +64,6 @@ export default function ListItem({ item }: ListItemProps) {
     [isEdit, nameInput, valueInput, quantity, unit, updateItem]
   );
 
-  useEffect(() => {
-    console.log(unit);
-  }, [unit]);
-
   return (
     <FlexContainer
       backgroundColor={item.checked ? "#e9faff" : "#fff"}
@@ -97,7 +93,7 @@ export default function ListItem({ item }: ListItemProps) {
         <TextInput
           disabled={!isEdit}
           value={quantity}
-          onChange={(event) => setQuantity(Number(event.currentTarget.value))}
+          onChange={(event) => setQuantity(event.currentTarget.value)}
           placeholder="Quantity"
           width="100%"
           type="number"
