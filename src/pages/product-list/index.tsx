@@ -19,7 +19,7 @@ export default function ProductListPage() {
       flexDirection={{ small: "column" }}
       padding={{ small: "12px" }}
       height={{ small: "100vh" }}
-      width={{ small: "100%", medium: "640px" }}
+      width={{ small: "100%", medium: "370px" }}
       alignItems={{ small: "center", medium: "center" }}
       margin={{ small: "auto" }}>
       <LoadingOverlay active={loading} />

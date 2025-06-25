@@ -38,7 +38,7 @@ export default function useResponsive() {
 
   const handleResize = useCallback(() => {
     const width = window.innerWidth;
-    if (width < 640) setBreakpoint("small");
+    if (width < 420) setBreakpoint("small");
     else if (width < 1024) setBreakpoint("medium");
     else setBreakpoint("large");
   }, []);
