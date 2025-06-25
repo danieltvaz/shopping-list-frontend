@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useReducer } from "react";
 
 import Button from "../../atoms/button";
 import FlexContainer from "../../atoms/flex-container";
@@ -9,13 +9,76 @@ import { ProductsContext } from "../../../contexts/products/productsContext";
 import Select from "../../atoms/select";
 import TextInput from "../../atoms/text-input";
 
+type InitialValue = {
+  name: string;
+  price: string;
+  searchText: string;
+  quantity: string;
+  unit: Product["unit"];
+};
+
+type Actions =
+  | "SET_NAME"
+  | "SET_PRICE"
+  | "SET_SEARCH_TEXT"
+  | "SET_QUANTITY"
+  | "SET_UNIT"
+  | "CLEAR_SEARCH"
+  | "RESET_ADD"
+  | "RESET_ALL";
+
+const INITIAL_VALUE: InitialValue = {
+  name: "",
+  price: "",
+  searchText: "",
+  quantity: "",
+  unit: "KG",
+};
+
+type Action<T extends Actions = Actions> = T extends "SET_NAME"
+  ? { type: "SET_NAME"; payload: InitialValue["name"] }
+  : T extends "SET_PRICE"
+  ? { type: "SET_PRICE"; payload: InitialValue["price"] }
+  : T extends "SET_SEARCH_TEXT"
+  ? { type: "SET_SEARCH_TEXT"; payload: InitialValue["searchText"] }
+  : T extends "SET_QUANTITY"
+  ? { type: "SET_QUANTITY"; payload: InitialValue["quantity"] }
+  : T extends "SET_UNIT"
+  ? { type: "SET_UNIT"; payload: InitialValue["unit"] }
+  : T extends "CLEAR_SEARCH"
+  ? { type: "CLEAR_SEARCH" }
+  : T extends "RESET_ADD"
+  ? { type: "RESET_ADD" }
+  : T extends "RESET_ALL"
+  ? { type: "RESET_ALL" }
+  : never;
+
+const reducer = (state: InitialValue, action: Action) => {
+  switch (action.type) {
+    case "SET_NAME":
+      return { ...state, name: action.payload };
+    case "SET_PRICE":
+      return { ...state, price: action.payload };
+    case "SET_SEARCH_TEXT":
+      return { ...state, searchText: action.payload };
+    case "SET_QUANTITY":
+      return { ...state, quantity: action.payload };
+    case "SET_UNIT":
+      return { ...state, unit: action.payload };
+    case "CLEAR_SEARCH":
+      return { ...state, searchText: "" };
+    case "RESET_ADD":
+      return { ...INITIAL_VALUE, searchText: state.searchText };
+    case "RESET_ALL":
+      return INITIAL_VALUE;
+    default:
+      return INITIAL_VALUE;
+  }
+};
+
 export default function SearchBar() {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [searchText, setSearchText] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [unit, setUnit] = useState<Product["unit"]>("KG");
   const { addItem, uncheckAll, getItems } = useContext(ProductsContext);
+  const [{ name, price, quantity, searchText, unit }, dispatch] = useReducer(reducer, INITIAL_VALUE);
 
   const handleAddItem = useCallback(async () => {
     await addItem({
@@ -26,36 +89,38 @@ export default function SearchBar() {
       unit,
     });
 
-    setName("");
-    setPrice("");
-    setQuantity("0");
-    setUnit("KG");
+    dispatch({ type: "RESET_ADD" });
   }, [addItem, name, price, quantity, unit]);
 
-  function handleSearch() {
+  const handleSearch = useCallback(() => {
     getItems(searchText);
-  }
+  }, [searchText, getItems]);
+
+  const handleClearSearch = useCallback(() => {
+    dispatch({ type: "CLEAR_SEARCH" });
+    handleSearch();
+  }, [handleSearch]);
 
   function handleUncheckAll() {
     uncheckAll();
   }
 
   return (
-    <FlexContainer>
+    <FlexContainer width={{ small: "100vw" }}>
       <FlexContainer flexDirection={{ small: "column" }} gap={{ small: "12px" }} flexGrow={{ small: 1 }}>
-        <FlexContainer flexDirection={{ small: "column" }} gap={{ small: "8px" }}>
+        <FlexContainer flexDirection={{ small: "column" }} gap={{ small: "8px" }} width={{ small: "100%" }}>
           <TextInput
             placeholder="New item"
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(event) => dispatch({ type: "SET_NAME", payload: event.target.value })}
             width="100%"
             flex={1}
           />
-          <FlexContainer gap={{ small: "8px" }}>
+          <FlexContainer width={{ small: "100%" }} gap={{ small: "8px" }}>
             <TextInput
               placeholder="Price"
               value={price}
-              onChange={(event) => setPrice(event.target.value)}
+              onChange={(event) => dispatch({ type: "SET_PRICE", payload: event.target.value })}
               width="100%"
               flex={1}
               type="number"
@@ -63,13 +128,13 @@ export default function SearchBar() {
             <TextInput
               placeholder="Quantity"
               value={quantity}
-              onChange={(event) => setQuantity(event.target.value)}
+              onChange={(event) => dispatch({ type: "SET_QUANTITY", payload: event.target.value })}
               width="100%"
               flex={0.5}
               type="number"
             />
             <Select
-              onChange={(event) => setUnit(event.currentTarget.value as Product["unit"])}
+              onChange={(event) => dispatch({ type: "SET_UNIT", payload: event.target.value as Product["unit"] })}
               options={[
                 {
                   label: "KG",
@@ -90,20 +155,12 @@ export default function SearchBar() {
           <TextInput
             placeholder="Search item"
             value={searchText}
-            onChange={(event) => setSearchText(event.target.value)}
+            onChange={(event) => dispatch({ type: "SET_SEARCH_TEXT", payload: event.target.value })}
             width="100%"
             flex={1}
           />
-          <Button onClick={handleSearch} text="&#10005;" icon={false} variant="danger" size="73px" />
-          <Button
-            onClick={() => {
-              setSearchText("");
-              handleSearch();
-            }}
-            text="&#9906;"
-            icon={false}
-            size="73px"
-          />
+          <Button onClick={handleClearSearch} text="&#10005;" icon={false} variant="danger" size="73px" />
+          <Button onClick={handleSearch} text="&#9906;" icon={false} size="73px" />
         </FlexContainer>
         <FlexContainer>
           <Button text="Uncheck all" onClick={handleUncheckAll} variant="danger" size="auto" />
