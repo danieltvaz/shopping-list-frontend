@@ -77,7 +77,7 @@ const reducer = (state: InitialValue, action: Action) => {
 };
 
 export default function SearchBar() {
-  const { addItem, uncheckAll, getItems } = useContext(ProductsContext);
+  const { addItem, uncheckAll, getItems, checkAll } = useContext(ProductsContext);
   const [{ name, price, quantity, searchText, unit }, dispatch] = useReducer(reducer, INITIAL_VALUE);
 
   const handleAddItem = useCallback(async () => {
@@ -103,6 +103,10 @@ export default function SearchBar() {
 
   function handleUncheckAll() {
     uncheckAll();
+  }
+
+  function handleCheckAll() {
+    checkAll();
   }
 
   return (
@@ -162,8 +166,9 @@ export default function SearchBar() {
           <Button onClick={handleClearSearch} text="&#10005;" icon={false} variant="danger" size="73px" />
           <Button onClick={handleSearch} text="&#9906;" icon={false} size="73px" />
         </FlexContainer>
-        <FlexContainer>
+        <FlexContainer gap={{ small: "8px" }}>
           <Button text="Uncheck all" onClick={handleUncheckAll} variant="danger" size="auto" />
+          <Button text="Check all" onClick={handleCheckAll} variant="danger" size="auto" />
         </FlexContainer>
       </FlexContainer>
     </FlexContainer>

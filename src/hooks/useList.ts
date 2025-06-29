@@ -102,6 +102,19 @@ export default function useList() {
     }
   }
 
+  async function checkAll() {
+    setLoading(true);
+
+    try {
+      await axiosInstance.put("/list/products/checkAll", {});
+      await getItems();
+    } catch {
+      alert("Error while unchecking all items");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     getItems();
   }, []);
@@ -111,5 +124,5 @@ export default function useList() {
     setCheckedSum(calculateTotalCheckedValues());
   }, [items, calculateTotalCheckedValues, calculateTotalSum]);
 
-  return { updateItem, addItem, removeItem, items, loading, getItems, uncheckAll, totalSum, checkedSum };
+  return { updateItem, addItem, removeItem, items, loading, getItems, uncheckAll, totalSum, checkedSum, checkAll };
 }
