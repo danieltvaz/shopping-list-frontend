@@ -8,15 +8,6 @@ import { createBrowserRouter } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage />,
-    index: true,
-  },
-  {
-    path: "/signup",
-    element: <SignupPage />,
-  },
-  {
-    path: "/products",
     element: (
       <ProtectedRoute>
         <ProductsContextProvider>
@@ -24,6 +15,14 @@ const router = createBrowserRouter([
         </ProductsContextProvider>
       </ProtectedRoute>
     ),
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
   },
 ]);
 

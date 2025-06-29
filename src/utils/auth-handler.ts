@@ -1,6 +1,7 @@
 import { deleteData, getData, saveData } from "./local-storage-handler";
 
 import axiosInstance from "../services/axios";
+import { jwtDecode } from "./jwt";
 
 export default function authHandler() {
   function saveAuthData(payload: { name: string; email: string; jwt: string }) {
@@ -74,8 +75,14 @@ export default function authHandler() {
   function isAutenticated() {
     const jwt = getJwt();
 
-    if (jwt) return true;
-    return false;
+    if (!jwt) return false;
+    else {
+      const { payload } = jwtDecode(jwt);
+      const expiration = Number(payload?.exp);
+      const now = Math.floor(new Date().getTime() / 1000);
+
+      return now < expiration;
+    }
   }
 
   return { login, logout, getJwt, isAutenticated, getUserData, signup };

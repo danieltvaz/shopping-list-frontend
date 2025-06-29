@@ -25,7 +25,7 @@ export default function SignupPage() {
     setLoading(true);
     try {
       await signup(form.email, form.password, form.name);
-      navigate("/");
+      navigate("/login");
     } catch {
       /* empty */
     } finally {
@@ -69,7 +69,7 @@ export default function SignupPage() {
           <Button text="Register" onClick={handleClick} />
         </div>
         <div>
-          <Link className="signup__back-button" to="/">
+          <Link className="signup__back-button" to="/login">
             Back
           </Link>
         </div>
