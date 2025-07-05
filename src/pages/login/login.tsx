@@ -1,5 +1,7 @@
 import "./styles.css";
 
+import { useCallback, useEffect, useState } from "react";
+
 import Button from "../../components/atoms/button";
 import { Link } from "react-router-dom";
 import LoadingOverlay from "../../components/atoms/loading-overlay";
@@ -9,7 +11,6 @@ import TextInput from "../../components/atoms/text-input";
 import logo from "../../assets/logo.png";
 import useAuth from "../../utils/auth-handler";
 import { useNavigate } from "react-router";
-import { useState } from "react";
 
 export default function LoginPage() {
   const [form, setForm] = useState({
@@ -22,7 +23,7 @@ export default function LoginPage() {
 
   const navigate = useNavigate();
 
-  async function handleClick() {
+  const handleClick = useCallback(async () => {
     setLoading(true);
 
     try {
@@ -30,7 +31,19 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [form, login, navigate]);
+
+  useEffect(() => {
+    function handleKeyPress(e: KeyboardEvent) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleClick();
+      }
+    }
+    window.addEventListener("keypress", handleKeyPress);
+
+    return () => window.removeEventListener("keypress", handleKeyPress);
+  }, [handleClick]);
 
   return (
     <MainContainer>
