@@ -66,7 +66,8 @@ export default function ListItem({ item }: ListItemProps) {
 
   return (
     <FlexContainer
-      backgroundColor={item.checked ? "#e9faff" : "#fff"}
+      backgroundColor={item.checked ? "#c2c2c2" : "#ffffff"}
+      border={item.checked ? "none" : "1px solid #e0e0e0"}
       width={{ small: "100%" }}
       flexDirection={{ small: "column" }}
       gap={{ small: "8px" }}
@@ -81,7 +82,8 @@ export default function ListItem({ item }: ListItemProps) {
           placeholder="Item name"
         />
       </FlexContainer>
-      <FlexContainer gap={{ small: "8px" }} width={{ small: "100%" }}>
+      <FlexContainer gap={{ small: "8px" }} width={{ small: "100%" }} alignItems={{ small: "center" }}>
+        <span>R$</span>
         <TextInput
           disabled={!isEdit}
           value={valueInput}
@@ -90,10 +92,12 @@ export default function ListItem({ item }: ListItemProps) {
           width="100%"
           type="number"
         />
+        <span>x</span>
+
         <TextInput
           disabled={!isEdit}
           value={quantity}
-          onChange={(event) => setQuantity(event.currentTarget.value)}
+          onChange={(event) => setQuantity(Number(event.currentTarget.value || 0))}
           placeholder="Quantity"
           width="100%"
           type="number"
