@@ -13,7 +13,7 @@ type InitialValue = {
   name: string;
   price: string;
   searchText: string;
-  quantity: string;
+  quantity: number;
   unit: Product["unit"];
 };
 
@@ -31,7 +31,7 @@ const INITIAL_VALUE: InitialValue = {
   name: "",
   price: "",
   searchText: "",
-  quantity: "",
+  quantity: 0,
   unit: "KG",
 };
 
@@ -85,7 +85,7 @@ export default function SearchBar() {
       productName: name,
       price: price,
       checked: false,
-      quantity,
+      quantity: quantity || 1,
       unit,
     });
 
@@ -96,10 +96,10 @@ export default function SearchBar() {
     getItems(searchText);
   }, [searchText, getItems]);
 
-  const handleClearSearch = useCallback(() => {
+  const handleClearSearch = () => {
     dispatch({ type: "CLEAR_SEARCH" });
-    handleSearch();
-  }, [handleSearch]);
+    getItems("");
+  };
 
   function handleUncheckAll() {
     uncheckAll();
@@ -132,7 +132,7 @@ export default function SearchBar() {
             <TextInput
               placeholder="Quantity"
               value={quantity}
-              onChange={(event) => dispatch({ type: "SET_QUANTITY", payload: event.target.value })}
+              onChange={(event) => dispatch({ type: "SET_QUANTITY", payload: Number(event.target.value || 0) })}
               width="100%"
               flex={0.5}
               type="number"
