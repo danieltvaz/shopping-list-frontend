@@ -39,9 +39,5 @@
     "vite-plugin-pwa": "^0.21.1",
     "workbox-core": "^7.3.0",
     "workbox-window": "^7.3.0"
-  },
-  "overrides": {
-    "sharp": "0.33.0",
-    "sharp-ico": "0.1.5"
   }
 }
